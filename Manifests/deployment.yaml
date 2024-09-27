@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-server
+  namespace: kavyaargo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: server
+          image: my-docker-repo/backend-server:latest
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: server-storage
+              mountPath: '/data'
+      volumes:
+        - name: server-storage
+          persistentVolumeClaim:
+            claimName: backend-pvc
+
