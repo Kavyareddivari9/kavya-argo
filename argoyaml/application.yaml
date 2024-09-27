@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web-application
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Kavyareddivari9/kavya-argo'
+    path: 'argocd-deploy-files'
+    targetRevision: 'main'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: 'web-app-namespace'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
