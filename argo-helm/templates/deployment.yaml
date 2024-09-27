@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-server
+  name: {{ .Chart.Name }}
   namespace: kavyaargo
 spec:
-  replicas: 3
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: backend
@@ -15,14 +15,13 @@ spec:
     spec:
       containers:
         - name: server
-          image: my-docker-repo/backend-server:latest
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.service.port }}
           volumeMounts:
             - name: server-storage
-              mountPath: '/data'
+              mountPath: {{ .Values.mountPath }}
       volumes:
         - name: server-storage
           persistentVolumeClaim:
-            claimName: backend-pvc
-
+            claimName: {{ .Values.pvc.name }}

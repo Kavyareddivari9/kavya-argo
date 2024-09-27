@@ -1,0 +1,11 @@
+replicaCount: 3
+image:
+  repository: my-docker-repo/backend-server
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 8080
+pvc:
+  name: backend-pvc
+mountPath: /data
