@@ -1,4 +1,6 @@
 replicaCount: 3
+namespace: kavya-argo
+
 image:
   repository: my-docker-repo/backend-server
   tag: latest

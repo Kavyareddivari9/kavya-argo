@@ -2,16 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: web-application
-  namespace: argocd
+  namespace: kavyaargo
 spec:
   project: default
   source:
     repoURL: 'https://github.com/Kavyareddivari9/kavya-argo'
-    path: 'argocd-deploy-files'
+    path: 'argo-helm'
     targetRevision: 'main'
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: 'web-app-namespace'
+    namespace: 'kavyaargo'
   syncPolicy:
     automated:
       prune: true
